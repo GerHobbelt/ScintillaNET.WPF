@@ -58,7 +58,7 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\ScintillaNET.WPF.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fernandreu.ScintillaNET" Version="4.0.3" />
+    <PackageReference Include="fernandreu.ScintillaNET" Version="4.0.4" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
