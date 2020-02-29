@@ -8,6 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Forms.Integration;
 using ScintillaNET.WPF.Configuration;
 
+// Properties are meant to be used by the library consumers, so there is no point in complaining
+// when one is not used within this solution:
+// ReSharper disable UnusedMember.Global
+
 namespace ScintillaNET.WPF
 {
     [DefaultProperty("Text")]
@@ -15,21 +19,19 @@ namespace ScintillaNET.WPF
     [ContentProperty("WPFConfig")]
     public class ScintillaWPF : UserControl
     {
-        public Scintilla Scintilla { get; private set; }
-
-        private WindowsFormsHost winFormsHost;
+        public Scintilla Scintilla { get; }
 
         public ScintillaWPF()
         {
             this.Scintilla = new Scintilla();
-            this.winFormsHost = new WindowsFormsHost
+            var host = new WindowsFormsHost
             {
                 Child = this.Scintilla,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
             };
 
-            this.Content = this.winFormsHost;
+            this.Content = host;
 
             this.Scintilla.ZoomChanged += (o, e) =>
             {
@@ -45,12 +47,10 @@ namespace ScintillaNET.WPF
             return new ScintillaAutomationPeer(this);
         }
 
-        private readonly ScintillaWPFConfigItemCollection mWPFConfig;
-
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ScintillaWPFConfigItemCollection WPFConfig => mWPFConfig;
+        public ScintillaWPFConfigItemCollection WPFConfig { get; }
 
         /// <summary>
         /// A constant used to specify an invalid document position.
@@ -310,7 +310,7 @@ namespace ScintillaNET.WPF
         [DefaultValue(' ')]
         [Category("Autocompletion")]
         [Description("The autocompletion list word delimiter. The default is a space character.")]
-        public Char AutoCSeparator
+        public char AutoCSeparator
         {
             get => Scintilla.AutoCSeparator;
             set => Scintilla.AutoCSeparator = value;
@@ -324,7 +324,7 @@ namespace ScintillaNET.WPF
         [DefaultValue('?')]
         [Category("Autocompletion")]
         [Description("The autocompletion list image type delimiter.")]
-        public Char AutoCTypeSeparator
+        public char AutoCTypeSeparator
         {
             get => Scintilla.AutoCTypeSeparator;
             set => Scintilla.AutoCTypeSeparator = value;
