@@ -1,0 +1,33 @@
+name: .NET Core
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: [windows-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.102
+      
+    # No tests added yet
+    # - name: Run tests
+    #   run: dotnet test src/ScintillaNET.Tests/ScintillaNET.Tests.csproj --configuration Release
+      
+    - name: Generate NuGet package
+      run: dotnet pack ScintillaNET.WPF.csproj --configuration Release -o nupkg
+      working-directory: ScintillaNET.WPF
+      
+    - name: Upload package
+      run: find . -name *.nupkg -type f -print0 | xargs -0 -I pkg dotnet nuget push pkg -k $nuget_api_key -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+      env:
+        nuget_api_key: ${{ secrets.NUGET_API_KEY }}
+      shell: bash
+      working-directory: ScintillaNET.WPF/nupkg
