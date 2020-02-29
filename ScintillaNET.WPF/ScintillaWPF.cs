@@ -5,6 +5,7 @@ using System.Windows.Markup;
 using System.ComponentModel;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
+using System.Windows.Forms.Integration;
 using ScintillaNET.WPF.Configuration;
 
 namespace ScintillaNET.WPF
@@ -12,16 +13,23 @@ namespace ScintillaNET.WPF
     [DefaultProperty("Text")]
     [DefaultEvent("DocumentChanged")]
     [ContentProperty("WPFConfig")]
-    public partial class ScintillaWPF : UserControl
+    public class ScintillaWPF : UserControl
     {
         public Scintilla Scintilla { get; private set; }
 
+        private WindowsFormsHost winFormsHost;
+
         public ScintillaWPF()
         {
-            InitializeComponent();
             this.Scintilla = new Scintilla();
-            this.winFormsHost.Child = this.Scintilla;
-            this.mWPFConfig = new ScintillaWPFConfigItemCollection(this);
+            this.winFormsHost = new WindowsFormsHost
+            {
+                Child = this.Scintilla,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            };
+
+            this.Content = this.winFormsHost;
 
             this.Scintilla.ZoomChanged += (o, e) =>
             {
@@ -1781,7 +1789,7 @@ namespace ScintillaNET.WPF
         }
 
         /// <summary>
-        /// Occurs when the value of the <see cref="Scintilla.BorderStyle" /> property has changed.
+        /// Occurs when the value of the <see cref="System.Windows.Forms.BorderStyle" /> property has changed.
         /// </summary>
         [Category("Property Changed")]
         [Description("Occurs when the value of the BorderStyle property changes.")]
