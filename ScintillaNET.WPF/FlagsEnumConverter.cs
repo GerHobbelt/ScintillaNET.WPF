@@ -154,6 +154,7 @@ namespace FlagsEnumTypeConverter
         /// </summary>
         /// <param name="context">The current context.</param>
         /// <param name="value">A value of an enumeration type.</param>
+        /// <param name="attributes"></param>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             if (context != null)
