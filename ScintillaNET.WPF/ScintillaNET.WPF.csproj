@@ -61,7 +61,7 @@
     <PackageReference Include="fernandreu.ScintillaNET" Version="4.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(SolutionDir)\LICENSE" Pack="true" Visible="false" PackagePath="" />
+    <None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
