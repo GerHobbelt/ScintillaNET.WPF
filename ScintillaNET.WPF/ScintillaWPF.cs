@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
+using ScintillaNET.WPF.Automation;
 using ScintillaNET.WPF.Configuration;
 
 // Properties are meant to be used by the library consumers, so there is no point in complaining

@@ -1,9 +1,11 @@
-﻿using System.Windows.Automation.Peers;
+﻿using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 
-namespace ScintillaNET.WPF
+namespace ScintillaNET.WPF.Automation
 {
-    public class ScintillaAutomationPeer : UserControlAutomationPeer, IValueProvider
+    public class ScintillaAutomationPeer : UserControlAutomationPeer
     {
         private readonly ScintillaWPF editor;
 
@@ -21,23 +23,15 @@ namespace ScintillaNET.WPF
         {
             if (patternInterface == PatternInterface.Value)
             {
-                return this;
+                return new ValueProvider(this.editor);
+            }
+
+            if (patternInterface == PatternInterface.Text)
+            {
+                return new TextProvider(this.editor);
             }
 
             return base.GetPattern(patternInterface);
         }
-
-        public void SetValue(string value)
-        {
-            this.Value = value;
-        }
-
-        public string Value
-        {
-            get => this.editor.Text;
-            set => this.editor.Text = value;
-        }
-
-        public bool IsReadOnly => false;
     }
 }
