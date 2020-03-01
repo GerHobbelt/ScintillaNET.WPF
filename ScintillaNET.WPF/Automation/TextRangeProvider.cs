@@ -36,8 +36,13 @@ namespace ScintillaNET.WPF.Automation
 
         public int CompareEndpoints(TextPatternRangeEndpoint endpoint, ITextRangeProvider targetRange, TextPatternRangeEndpoint targetEndpoint)
         {
+            if (!(targetRange is TextRangeProvider provider))
+            {
+                return 0;
+            }
+
             var position = endpoint == TextPatternRangeEndpoint.Start ? this.Start : this.End;
-            var targetPosition = targetEndpoint == TextPatternRangeEndpoint.Start ? this.Start : this.End;
+            var targetPosition = targetEndpoint == TextPatternRangeEndpoint.Start ? provider.Start : provider.End;
             return position - targetPosition;
         }
 
