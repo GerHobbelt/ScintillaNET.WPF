@@ -57,7 +57,7 @@ namespace ScintillaNET.WPF.Automation
                 {
                     var line = this.editor.LineFromPosition(this.Position);
                     this.Position = this.editor.Lines[line].Position;
-                    this.EndPosition = this.editor.Lines[line].EndPosition;
+                    this.EndPosition = this.editor.Lines[line].EndPosition - 1;
                     break;
                 }
                 default:
@@ -118,7 +118,7 @@ namespace ScintillaNET.WPF.Automation
                     var newIndex = Math.Max(0, Math.Min(this.editor.Lines.Count - 1, previous + count));
                     var newLine = this.editor.Lines[newIndex];
                     this.Position = newLine.Position;
-                    this.EndPosition = newLine.EndPosition;
+                    this.EndPosition = newLine.EndPosition - 1;
                     return newIndex - previous;
                 }
                 default:
@@ -156,7 +156,7 @@ namespace ScintillaNET.WPF.Automation
                     }
                     else
                     {
-                        this.EndPosition = newLine.EndPosition;
+                        this.EndPosition = newLine.EndPosition - 1;
                     }
 
                     return newIndex - previous;
